@@ -5,23 +5,36 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      {name: 'Arjun', age:'20'},
-      {name: 'Karan', age:'21'}
-    ]
+      {id: 1, name: 'Arjun', age: '20' },
+      {id: 2, name: 'Karan', age: '21' }
+    ],
+    showPersons: false
   }
-switchNameHandler = () => {
-  this.setState({persons:[
-    {name: 'Arjun', age:'20'},
-    {name: 'Amit', age:'21'}
-  ]})
-}
 
-nameChangeHandler = (event) => {
-  this.setState({persons:[
-    {name: 'Arjun', age:'20'},
-    {name:event.target.value,age:21}
-  ]})
-}
+  nameChangeHandler = (event, id) => {
+    const personIndex=this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+    person.name=event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex]=person;
+    this.setState({persons:persons});
+  }
+  
+  deletePersonHandler = (personIndex) => {
+    const persons = [...this.state.persons];
+    persons.splice(personIndex,1);
+    this.setState({persons:persons});
+  }
+
+  togglePersonsHandler = () => {
+    const doesShow=this.state.showPersons;
+    this.setState({showPersons:!doesShow});
+  }
+
   render() {
     const style = {
       backgroundColor: 'white',
@@ -33,9 +46,13 @@ nameChangeHandler = (event) => {
     return (
       <div className="App">
         <h1>Hi! Welcome to React</h1>
-        <button style={style} onClick={this.switchNameHandler}>Switch Names</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>My Hobby: Coding</Person>
-        <Person changed={this.nameChangeHandler} name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobby: Coding</Person>
+        <button style={style} onClick={this.togglePersonsHandler}>Toggle View</button>
+        { this.state.showPersons ? 
+          <div >
+            {this.state.persons.map((person, index) => {
+              return <Person click={() => this.deletePersonHandler(index) }name={person.name} age={person.age} key={person.id} changed={(event) => this.nameChangeHandler(event,person.id)}/>
+            })}
+        </div> : null }
       </div>
     );
   }
