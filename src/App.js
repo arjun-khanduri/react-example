@@ -5,8 +5,9 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      {id: 1, name: 'Arjun', age: '20' },
-      {id: 2, name: 'Karan', age: '21' }
+      {id: 1, name: 'Arjun', age: '21' },
+      {id: 2, name: 'Karan', age: '23' },
+      {id: 3, name: 'Raj', age: '22'}
     ],
     showPersons: false
   }
@@ -37,12 +38,13 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer'
     };
+
     return (
       <div className="App">
         <h1>Hi! Welcome to React</h1>
@@ -53,6 +55,7 @@ class App extends Component {
               return <Person click={() => this.deletePersonHandler(index) }name={person.name} age={person.age} key={person.id} changed={(event) => this.nameChangeHandler(event,person.id)}/>
             })}
         </div> : null }
+        
       </div>
     );
   }
