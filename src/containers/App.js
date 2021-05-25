@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import classes from './App.css';
 
-import Person from '../components/Persons/Person/Person';
+import './App.css';
 
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -49,15 +50,19 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Hi! Welcome to React</h1>
-        <button style={style} onClick={this.togglePersonsHandler}>Toggle View</button>
-        { this.state.showPersons ?
-          <div >
-            {this.state.persons.map((person, index) => {
-              return <Person click={() => this.deletePersonHandler(index)} name={person.name} age={person.age} key={person.id} changed={(event) => this.nameChangeHandler(event, person.id)} />
-            })}
-          </div> : null}
+        <Cockpit showPersons={this.state.showPersons}
+          style={style}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
 
+        
+        {this.state.showPersons ? <div>
+          <Persons persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangeHandler}
+          />
+        </div> : null
+        }
       </div>
     );
   }
