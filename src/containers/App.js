@@ -6,6 +6,12 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+  
+  constructor(props) {
+    super(props);
+    console.log('App.js constructor');
+  }
+
   state = {
     persons: [
       { id: 1, name: 'Arjun', age: '21' },
@@ -13,6 +19,15 @@ class App extends Component {
       { id: 3, name: 'Raj', age: '22' }
     ],
     showPersons: false
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('App.js getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentDidMount(){
+    console.log('App.js componentDidMount');
   }
 
   nameChangeHandler = (event, id) => {
@@ -40,6 +55,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('App.js render');
     const style = {
       backgroundColor: 'green',
       font: 'inherit',
