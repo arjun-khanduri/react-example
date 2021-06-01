@@ -5,6 +5,13 @@ import './Person.css';
 import Aux from '../../../hoc/Auxiliary';
 
 class Person extends Component {
+    constructor(props){
+        super(props);
+        this.inputElementRef = React.createRef();
+    }
+    componentDidMount() {
+        this.inputElementRef.current.focus();
+    }
     render() {
         return (
             <Aux>
@@ -14,6 +21,7 @@ class Person extends Component {
                         <p>{this.props.children}</p>
                     </div>
                     <input type="text"
+                        ref={this.inputElementRef}
                         onChange={this.props.changed}
                         value={this.props.name} />
                     <div>
