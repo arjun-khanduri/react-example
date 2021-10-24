@@ -20,7 +20,12 @@ const Cockpit = (props) => {
     return (
         <div>
             <h1>{props.title}</h1>
-            <button ref={toggleButtonRef} style={props.style} onClick={props.clicked}>Toggle View</button>
+            <button ref={toggleButtonRef} 
+            style={props.style} 
+            onClick={props.clicked}>Toggle View</button>
+            <button onClick={props.login}>
+                Log In
+            </button>
         </div>
     );
 };
