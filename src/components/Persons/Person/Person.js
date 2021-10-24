@@ -5,7 +5,7 @@ import './Person.css';
 import Aux from '../../../hoc/Auxiliary';
 
 class Person extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.inputElementRef = React.createRef();
     }
@@ -16,6 +16,7 @@ class Person extends Component {
         return (
             <Aux>
                 <div className="Person" >
+                    {this.props.isAuth ? <p>Authenticated</p> : <p>Please log in</p>}
                     <div>
                         <p onClick={this.props.click}>I am {this.props.name} and I am {this.props.age} years old!</p>
                         <p>{this.props.children}</p>

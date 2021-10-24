@@ -19,7 +19,8 @@ class App extends Component {
       { id: 3, name: 'Raj', age: '22' }
     ],
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    authenticated: false
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -64,6 +65,12 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   }
 
+  loginHandler = () => {
+    console.log("ho gaya");
+    this.setState({ authenticated: true });
+    console.log(this.state.authenticated);
+  }
+
   render() {
     console.log('App.js render');
     const style = {
@@ -86,7 +93,8 @@ class App extends Component {
             title={this.props.appTitle}
             style={style}
             persons={this.state.persons}
-            clicked={this.togglePersonsHandler} />
+            clicked={this.togglePersonsHandler}
+            login={this.loginHandler} />
           : null
         }
 
@@ -96,6 +104,7 @@ class App extends Component {
           <Persons persons={this.state.persons}
             clicked={this.deletePersonHandler}
             changed={this.nameChangeHandler}
+            isAuthenticated={this.state.authenticated}
           />
         </div> : null
         }
